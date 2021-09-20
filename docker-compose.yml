@@ -25,3 +25,8 @@ services: #作成するコンテナを定義する
       - 3306:3306
     volumes:
       - ./mysql/data:/var/lib/mysql
+
+  redis:
+    image: redis:latest #公式のredisイメージ最新をそのまま利用
+    ports:
+      - 6379:6379 #アプリを動作させる分にはRedisコンテナのポートを公開する必要はなし
