@@ -12,3 +12,16 @@ services: #作成するコンテナを定義する
     build: ./php-fpm #このコンテナの元になるDockerfileがおいてあるパスを指定
     volumes:
       - ./source:/var/www/html #PHP-FPMコンテナでもホストPC側のプログラムソースディレクトリをマウントしておきます
+
+  mysql:
+    image: mysql:5.7 #MySQLコンテナは公式のこのイメージを使用
+    environment: #MySQLコンテナ作成時に初期作成されるデータベースの名前やユーザ、パスワードの設定
+      MYSQL_DATABASE: laravel_sample_db
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: laravel_sample_user
+      MYSQL_PASSWORD: password
+      TZ: Asia/Tokyo
+    ports: #ホスト側3306番ポートとコンテナ側3306番ポートをつなげる設定
+      - 3306:3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql
